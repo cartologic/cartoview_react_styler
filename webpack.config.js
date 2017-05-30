@@ -6,7 +6,7 @@ var fs = require('fs');
 module.exports = {
     context: __dirname,
     entry: {
-       commons: ["react", "react-dom", 'openlayers'],
+      //  commons: ["react", "react-dom"],
     },
     output: {
         path: __dirname + "/dist",
@@ -41,9 +41,9 @@ module.exports = {
           NODE_ENV: JSON.stringify('production')
         }
       }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'commons', filename: 'commons.min.js'
-      }),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name: 'commons', filename: 'commons.min.js'
+      // }),
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
           warnings: false,

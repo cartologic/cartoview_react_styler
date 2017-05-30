@@ -34,6 +34,5 @@ class PaletteSelector extends Component {
       </DropdownMenu>
     </UncontrolledDropdown>
   }
-
 }
 export default PaletteSelector;

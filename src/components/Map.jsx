@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ol from 'openlayers';
 import WMSClient from "../gs-client/WMSClient.jsx";
 
 class Map extends React.Component {
     constructor(props) {
       super(props);
       const {layerName, styleName} = props.config;
-      this.layerSource = new ol.source.TileWMS({
+      this.layerSource = new ol.source.ImageWMS({
         url: URLS.geoserver + "wms",
         params: {
           LAYERS: layerName,
@@ -19,7 +18,7 @@ class Map extends React.Component {
       this.map = new ol.Map({
         layers: [
           new ol.layer.Tile({source: new ol.source.OSM()}),
-          new ol.layer.Tile({source: this.layerSource})
+          new ol.layer.Image({source: this.layerSource})
         ],
         view: new ol.View({center: [0, 0], zoom: 3})
       });

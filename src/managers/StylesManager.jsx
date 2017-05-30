@@ -42,8 +42,7 @@ class StylesManager {
     }
     return this.createGraduatedRules(styleObj);
   }
-  createGraduatedRules(styleObj){
-    const {config} = styleObj;
+  createGraduatedRules(styleObj, config){
     const {layerName, method, numOfClasses, attribute} = config;
     return WPSClient.vecFeatureClassStats(layerName, {
       attribute,
@@ -182,8 +181,10 @@ class StylesManager {
   // _getDefaultConfig(layerName, layerType){
   //   return Object.assign({layerName, layerType}, DEFAULTS);
   // }
-  saveStyle(styleObj, config){
-    const sld = this.format.write(styleObj);
+  saveStyle(styleObj, config, sld){
+    if(!sld){
+      sld = this.format.write(styleObj)
+    }
     const {layerName, styleName} = config
     const url = URLS.stylesUrl + "/save/" + layerName + "/" + styleName;
     return fetch(url, {
