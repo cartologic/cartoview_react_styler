@@ -35,7 +35,7 @@ class Styler extends Component {
       }
     },
     {
-      label: "Select Style",
+      label: "Set new style name",
       component: LayerStyles,
       props: {
         onComplete: (newConfig) => {
