@@ -28,7 +28,8 @@ class Styler extends Component {
       label: "Select Layer",
       component: LayersList,
       props: {
-        onComplete: (layerName) => this.updateConfig({layerName})
+        onComplete: (layerName) => this.updateConfig({layerName}),
+        layerType: "",
       }
     },
     {
@@ -45,7 +46,6 @@ class Styler extends Component {
           })
         }
       }
-
     },
     {
       label: "Select Attribute",

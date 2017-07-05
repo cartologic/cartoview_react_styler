@@ -10,9 +10,26 @@ class LayersList extends Component {
       layers: []
     }
   }
-  componentDidMount(){
-    WMSClient.getLayers().then((layers)=>this.setState({layers}));
+
+
+  loadLayers(){
+    let url = `/apps/cartoview_point_in_polygon/api/layers/?type=${this.props.layerType}`
+    fetch(url, {credentials: 'include',}).then((res) => res.json()).then((layers) => {
+      // let layerTypeNames = layers.objects.map((layer)=>{
+      //   return {value:layer.typename, label:layer.title}
+      // })
+      this.setState({layers:layers.objects})
+    })
   }
+
+
+  componentDidMount(){
+    // WMSClient.getLayers().then((layers)=>this.setState({layers}));
+    // buffer or pnp api
+    this.loadLayers();
+  }
+
+  
   render(){
     const {layers} = this.state;
     if(layers.length == 0){

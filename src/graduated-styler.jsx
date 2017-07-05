@@ -16,7 +16,7 @@ import StylesManager from "./managers/StylesManager.jsx";
 
 import "../css/styler.css";
 import {UNIQUE_VALUES, SOLID, BY_VALUE, DEFAULTS, DEFAULT_NUM_OF_CLASSES,
-        DEFAULT_PALETTE, DEFAULT_COLOR, MAX_SIZE} from './constants/constants.jsx'
+        DEFAULT_PALETTE, DEFAULT_COLOR, MAX_SIZE, EQ} from './constants/constants.jsx'
 
 class Styler extends Component {
   state = {
@@ -30,7 +30,8 @@ class Styler extends Component {
       label: "Select Layer",
       component: LayersList,
       props: {
-        onComplete: (layerName) => this.updateConfig({layerName})
+        onComplete: (layerName) => this.updateConfig({layerName}),
+        layerType: "",
       }
     },
     {

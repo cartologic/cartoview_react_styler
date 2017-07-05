@@ -8,7 +8,7 @@ import PolygonSymbolizer from "./PolygonSymbolizer.jsx";
 class PointSymbolizer extends Component {
   state = {}
   render(){
-    var {config, onChange} = this.props;
+    var {config, onChange, type} = this.props;
     return <div>
       <FormGroup>
         <label>Symbol</label>

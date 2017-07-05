@@ -17,10 +17,12 @@ class GeneralSymbolizer extends Component {
     if(!numOfClasses){
       return <div className="loading"></div>
     }
+
     var Symbolizer = layerType == "Point"   ? PointSymbolizer :
                      layerType == "Polygon" ? PolygonSymbolizer : LineSymbolizer;
+
     return <div>
-      <Symbolizer config={config} onChange={newConfig => onChange(newConfig)}/>
+      <Symbolizer config={config} onChange={newConfig => onChange(newConfig)} />
       <div className="form-group">
         <Button color="primary" onClick={(e)=>onComplete()}>
           Next >>

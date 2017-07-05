@@ -14,6 +14,7 @@ class LayerStyles extends Component {
       this.setState({styles});
     });
   }
+
   render(){
     const {styles, title, error} = this.state;
     if(styles.length == 0){
@@ -23,13 +24,14 @@ class LayerStyles extends Component {
     return <div>
 
       <FormGroup color={error}>
-        <label>{"Create new style "}</label>
+        <label>{"Style Name "}</label>
         <Input state={error} placeholder="New Style Title" value={title} onChange={e => this.setState({title:e.target.value})}/>
         {error && <FormFeedback color="muted">Please enter a valid title</FormFeedback>}
       </FormGroup>
       <Button color="primary" onClick={() => this.newStyle()}>
       {"Next"}
       </Button>
+      {/*
       <p>
         {"or select style to override"}
       </p>
@@ -42,6 +44,7 @@ class LayerStyles extends Component {
           )
         }
       </ListGroup>
+      */}
     </div>
   }
   newStyle(){

@@ -12,6 +12,7 @@ import Alpha from './Alpha.jsx';
 class ColorSelector extends Component {
   render(){
     const {config, property, onChange} = this.props;
+
     const type = config[property];
     const alpha = parseFloat(config[property + "Opacity"] || 1) * 100;
     const onAlphaChange = (alpha) => {
@@ -19,6 +20,8 @@ class ColorSelector extends Component {
        newConfig[property + "Opacity"] = alpha / 100;
        onChange(newConfig);
     }
+
+
     const onTypeChange = (type) => {
       const newConfig = {};
       if(type == BY_VALUE){
@@ -30,6 +33,8 @@ class ColorSelector extends Component {
       newConfig[property] = type;
       onChange(newConfig);
     }
+
+
     return <div className="d-flex flex-row">
       <div className="mr-4">
         <ColorTypeSelector  type={type} onChange={(type) => onTypeChange(type)}/>
@@ -56,7 +61,6 @@ class ColorSelector extends Component {
          </div>
         </div>
       }
-
     </div>
 
   }
