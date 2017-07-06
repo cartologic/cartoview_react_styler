@@ -4,14 +4,20 @@ export default class Navigator extends Component {
   state = {}
 
 
+  onClick(e, index){
+    if (index < this.props.step) {
+      this.props.onStepSelected(index)
+    }
+  }
+
+
   item(label, index){
     const {step, onStepSelected} = this.props;
     const className = index == step ? "list-group-item active" :
                               index > step ? "list-group-item disabled" : "list-group-item";
     return (
       <li className={className}
-        href="#"
-        onClick={e => onStepSelected(index)}>
+        onClick={e => this.onClick(e, index)}>
         {index < step && <i className="fa fa-check" aria-hidden="true"></i> }
         {label}
       </li>
