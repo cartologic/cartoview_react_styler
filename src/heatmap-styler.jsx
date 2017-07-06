@@ -27,6 +27,8 @@ class Styler extends Component {
     step: 0,
     saved: false
   }
+
+  
   render() {
     var {config, styleObj, step, saved} = this.state;
     const steps = [{

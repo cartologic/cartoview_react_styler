@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import WMSClient from "../gs-client/WMSClient.jsx";
+
+import Search from "./Search.jsx";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from 'reactstrap';
 
 
@@ -7,6 +9,7 @@ class LayersList extends Component {
   constructor(props){
     super(props);
     this.state = {
+      layerTypeNames: [],
       layers: []
     }
   }
@@ -15,11 +18,23 @@ class LayersList extends Component {
   loadLayers(){
     let url = `/apps/${APP_NAME}/api/layers/?type=${this.props.layerType}`
     fetch(url, {credentials: 'include',}).then((res) => res.json()).then((layers) => {
-      // let layerTypeNames = layers.objects.map((layer)=>{
-      //   return {value:layer.typename, label:layer.title}
-      // })
-      this.setState({layers:layers.objects})
+      let layerTypeNames = layers.objects.map((layer)=>{
+        return {value:layer.typename, label:layer.title}
+      })
+      this.setState({layers:layers.objects, layerTypeNames})
     })
+  }
+
+
+  searchLayers(layerTypeName){
+    if(layerTypeName){
+      let url = `/apps/cartoview_point_in_polygon/api/layers/?typename=${layerTypeName}&type=${this.props.layerType}`
+      fetch(url, {credentials: 'include',}).then((res) => res.json()).then((layers) => {this.setState({layers:layers.objects})})
+    }
+    else{
+      // clear button
+      this.loadLayers()
+    }
   }
 
 
@@ -30,6 +45,12 @@ class LayersList extends Component {
 
 
   render(){
+
+
+    console.log("layerTypeNames:", this.state.layerTypeNames);
+
+
+
     const {layers} = this.state;
     if(layers.length == 0){
       return <div className="loading"></div>
@@ -37,9 +58,10 @@ class LayersList extends Component {
     const {onComplete} = this.props;
     return (
       <div>
-        <p>
-          {"Select layer "}
-        </p>
+        <Search layerTypeNames={this.state.layerTypeNames} searchLayers={(layerName)=>{this.searchLayers(layerName)}}/>
+        <br></br>
+
+        <p>{"Select layer "}</p>
         <ListGroup className="layers-list">
           {
             //to={match.url + layer.typename}
