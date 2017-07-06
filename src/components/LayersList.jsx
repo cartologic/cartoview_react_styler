@@ -52,16 +52,17 @@ class LayersList extends Component {
     const {onComplete} = this.props;
     return (
       <div>
+        <h4>{"Select layer "}</h4>
+
         <Search layerTypeNames={this.state.layerTypeNames} searchLayers={(layerName)=>{this.searchLayers(layerName)}}/>
         <br></br>
 
-        <p>{"Select layer "}</p>
         <ul className="list-group">
           {
             //to={match.url + layer.typename}
             layers.map((layer) => {return(
               <div>
-                <li className="list-group-item" href="#" onClick={()=>onComplete(layer.typename)}>
+                <li className="list-group-item">
                   <div className="row">
 
                     <div className="col-xs-3"><img src={layer.thumbnail_url} style={{width:"100%", height:"150px"}}/></div>
@@ -71,6 +72,24 @@ class LayersList extends Component {
                         <h4 className="list-group-item-heading">{layer.title}</h4>
                         <hr></hr>
                         <p className="mb-1">{layer.abstract}</p>
+                        <br></br>
+
+                        <a
+                          type="button"
+                          href={`/layers/${layer.typename}`}
+                          target="_blank"
+                          className="btn btn-primary"
+                          style={{margin: "5px", float: "right"}}>
+                          Layer Details
+                        </a>
+
+                        <button
+                          type="button"
+                          className="btn btn-default"
+                          onClick={()=>onComplete(layer.typename)}
+                          style={{margin: "5px", float: "right"}}>
+                          Select
+                        </button>
                       </div>
                     </div>
                   </div>

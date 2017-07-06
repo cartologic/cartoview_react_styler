@@ -9,7 +9,6 @@ class HeatmapConfigForm extends Component {
     const onComplete = () =>{
       this.props.onComplete(StyleWriter.write(config, styleObj));
     }
-    console.log(config);
     return <div>
       <FormGroup>
         <label>{"Radius"}</label>
