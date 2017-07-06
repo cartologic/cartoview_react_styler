@@ -56,18 +56,30 @@ class LayersList extends Component {
         <br></br>
 
         <p>{"Select layer "}</p>
-        <ListGroup className="layers-list">
+        <ul className="list-group">
           {
             //to={match.url + layer.typename}
-            layers.map((layer) => <ListGroupItem tag="a" href="#" onClick={()=>onComplete(layer.typename)} action>
-              <img src={layer.thumbnail_url}/>
-              <div className="content">
-                <ListGroupItemHeading>{layer.title}</ListGroupItemHeading>
-                <p className="mb-1">{layer.abstract}</p>
+            layers.map((layer) => {return(
+              <div>
+                <li className="list-group-item" href="#" onClick={()=>onComplete(layer.typename)}>
+                  <div className="row">
+
+                    <div className="col-xs-3"><img src={layer.thumbnail_url} style={{width:"100%", height:"150px"}}/></div>
+
+                    <div className="col-xs-9">
+                      <div className="content">
+                        <h4 className="list-group-item-heading">{layer.title}</h4>
+                        <hr></hr>
+                        <p className="mb-1">{layer.abstract}</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <br></br>
               </div>
-            </ListGroupItem>)
+            )})
           }
-        </ListGroup>
+        </ul>
       </div>
     )
   }
