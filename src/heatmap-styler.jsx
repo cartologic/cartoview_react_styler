@@ -28,7 +28,7 @@ class Styler extends Component {
     saved: false
   }
 
-  
+
   render() {
     var {config, styleObj, step, saved} = this.state;
     const steps = [{
@@ -86,21 +86,20 @@ class Styler extends Component {
       props: {saved}
     }];
 
-    return  <div className="col-md-12">
-        {
-          // <ol className="breadcrumb">
-          //   <ItemLink to="/">Layers</ItemLink>
-          // </ol>
-        }
-        <div className="row">
-          <Navigator steps={steps} step={step} onStepSelected={(step)=>this.goToStep(step)}/>
-          <div className="col-md-9">
-            {
-              steps.map((s,index) => index == step && <s.component {...s.props} config={config} styleObj={styleObj}/>)
-            }
+    return (
+      <div>
+        <div className="col-md-12">
+          <div className="row">
+            <Navigator steps={steps} step={step} onStepSelected={(step)=>this.goToStep(step)}/>
+            <div className="col-md-9">
+              {
+                steps.map((s,index) => index == step && <s.component {...s.props} config={config} styleObj={styleObj}/>)
+              }
+            </div>
           </div>
         </div>
       </div>
+    )
   }
   updateConfig(newConfig, sameStep){
     var {config, step} = this.state;

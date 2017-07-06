@@ -1,25 +1,32 @@
 import { Component } from 'react';
-import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 
-class Navigator extends Component {
+export default class Navigator extends Component {
   state = {}
-  render(){
-    const {steps} = this.props;
-    return <div className="col-md-3 list-group">
-        <ListGroup>
-          {steps.map((s, index) => this.item(s.label, index) )}
-        </ListGroup>
-      </div>
-  }
+
+
   item(label, index){
     const {step, onStepSelected} = this.props;
-    return <ListGroupItem tag="a" href="#"
-      disabled={index > step}
-      active={index == step}
-      onClick={e => onStepSelected(index)}>
-      {index < step && <i className="fa fa-check" aria-hidden="true"></i> }
-      {label}
-    </ListGroupItem>
+    const className = index == step ? "list-group-item active" :
+                              index > step ? "list-group-item disabled" : "list-group-item";
+    return (
+      <li className={className}
+        href="#"
+        onClick={e => onStepSelected(index)}>
+        {index < step && <i className="fa fa-check" aria-hidden="true"></i> }
+        {label}
+      </li>
+    )
+  }
+
+
+  render(){
+    const {steps} = this.props;
+    return (
+      <div className="col-md-3 list-group">
+        <ul className={"list-group"}>
+          {steps.map((s, index) => this.item(s.label, index) )}
+        </ul>
+      </div>
+    )
   }
 }
-export default Navigator;

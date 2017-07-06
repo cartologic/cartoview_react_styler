@@ -45,12 +45,6 @@ class LayersList extends Component {
 
 
   render(){
-
-
-    console.log("layerTypeNames:", this.state.layerTypeNames);
-
-
-
     const {layers} = this.state;
     if(layers.length == 0){
       return <div className="loading"></div>
