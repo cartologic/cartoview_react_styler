@@ -1,7 +1,8 @@
 import { Component } from 'react';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import CartoColor from 'cartocolor';
+
 import {SOLID, BY_VALUE} from "../../constants/constants.jsx";
+
 
 export default class ColorTypeSelector extends Component {
   render(){
@@ -13,7 +14,11 @@ export default class ColorTypeSelector extends Component {
         </button>
         <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
           {
-            [SOLID, BY_VALUE].map(key => <li onClick={e => onChange(key)}>{key}</li>)
+            [SOLID, BY_VALUE].map(key => {return(
+              <li className="" onClick={e => onChange(key)}>
+                <a>{key}</a>
+              </li>
+            )})
           }
         </ul>
       </div>
