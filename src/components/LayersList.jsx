@@ -9,19 +9,18 @@ class LayersList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      layerTypeNames: [],
-      layers: []
+      layers: [],
+      currentPage: 1,
+      limit_offset: "limit=5",
+      showPagination: true
     }
   }
 
 
   loadLayers(){
-    let url = `/apps/${APP_NAME}/api/layers/?type=${this.props.layerType}`
+    let url = `/apps/${APP_NAME}/api/layers/?type=${this.props.layerType}&${this.state.limit_offset}`
     fetch(url, {credentials: 'include',}).then((res) => res.json()).then((layers) => {
-      let layerTypeNames = layers.objects.map((layer)=>{
-        return {value:layer.typename, label:layer.title}
-      })
-      this.setState({layers:layers.objects, layerTypeNames})
+      this.setState({layers:layers.objects, next:layers.meta.next, prev:layers.meta.previous})
     })
   }
 
@@ -29,11 +28,35 @@ class LayersList extends Component {
   searchLayers(layerTypeName){
     if(layerTypeName){
       let url = `/apps/cartoview_point_in_polygon/api/layers/?typename=${layerTypeName}&type=${this.props.layerType}`
-      fetch(url, {credentials: 'include',}).then((res) => res.json()).then((layers) => {this.setState({layers:layers.objects})})
+      fetch(url, {credentials: 'include',})
+      .then((res) => res.json())
+      .then((layers) => {
+        this.setState({layers:layers.objects, showPagination: false})
+      })
     }
     else{
       // clear button
-      this.loadLayers()
+      this.setState({showPagination: true}, ()=>this.loadLayers())
+    }
+  }
+
+
+  onPaginationClick(e, step){
+    e.preventDefault()
+
+    switch (step) {
+      case "prev":
+      if(this.state.prev)
+        this.setState({currentPage: this.state.currentPage-=1, limit_offset: this.state.prev}, ()=>{
+          this.loadLayers();
+        })
+        break;
+      case "next":
+        if(this.state.next)
+        this.setState({currentPage: this.state.currentPage+=1, limit_offset: this.state.next}, ()=>{
+          this.loadLayers();
+        })
+        break;
     }
   }
 
@@ -41,6 +64,17 @@ class LayersList extends Component {
   componentDidMount(){
     // WMSClient.getLayers().then((layers)=>this.setState({layers}));
     this.loadLayers();
+  }
+
+
+  pagination(){
+    return(
+      <ul className="pagination">
+        <li><a onMouseDown={(e)=>this.onPaginationClick(e, "prev")} style={{cursor:"default"}}>{"<"}</a></li>
+        <li><a onMouseDown={(e)=>e.preventDefault()} style={{cursor:"default"}}>{this.state.currentPage}</a></li>
+        <li><a onMouseDown={(e)=>this.onPaginationClick(e, "next")} style={{cursor:"default"}}>{">"}</a></li>
+      </ul>
+    )
   }
 
 
@@ -54,7 +88,7 @@ class LayersList extends Component {
       <div>
         <h4>{"Select layer "}</h4>
 
-        <Search layerTypeNames={this.state.layerTypeNames} searchLayers={(layerName)=>{this.searchLayers(layerName)}}/>
+        <Search layerType={this.props.layerType} searchLayers={(layerName)=>{this.searchLayers(layerName)}}/>
         <br></br>
 
         <ul className="list-group">
@@ -99,6 +133,8 @@ class LayersList extends Component {
             )})
           }
         </ul>
+
+        {this.state.showPagination && this.pagination()}
       </div>
     )
   }
