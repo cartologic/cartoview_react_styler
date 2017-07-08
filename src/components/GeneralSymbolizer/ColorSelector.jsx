@@ -38,8 +38,8 @@ export default class ColorSelector extends Component {
 
 
     return(
-      <div className="d-flex flex-row">
-        <div className="mr-4">
+      <div className="row">
+        <div className="col-xs-2">
           <ColorTypeSelector  type={type} onChange={(type) => onTypeChange(type)}/>
         </div>
         {
@@ -49,14 +49,14 @@ export default class ColorSelector extends Component {
           </div>
         }
         {
-          type == BY_VALUE && <div className="mr-4">
+          type == BY_VALUE && <div className="col-xs-3">
           <PaletteSelector symbolizer={config} property={property}
             onChange={(symbolizer) => onChange(symbolizer)} />
           </div>
         }
         {
-          type == BY_VALUE && <div className="mr-4 alpha-ct">
-            <div className="rc-color-picker-panel-wrap-alpha">
+          type == BY_VALUE && <div className="col-xs-3">
+            <div className="rc-color-picker-panel-wrap-alpha" style={{top: "100%"}}>
               <Alpha rootPrefixCls="rc-color-picker-panel"
                  alpha={alpha}
                  hsv={{h: 0, s: 0, v: 33}}

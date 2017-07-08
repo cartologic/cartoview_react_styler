@@ -10,7 +10,7 @@ export default class ColorTypeSelector extends Component {
     return (
       <div className="dropdown">
         <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {type}
+          {`${type} `}   <span className="caret"></span>
         </button>
         <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
           {

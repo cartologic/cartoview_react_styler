@@ -22,7 +22,7 @@ export default class PaletteSelector extends Component {
           {
             palette && CartoColor[palette] && CartoColor[palette][count]
             && preview(CartoColor[palette][count])
-          }
+          } <span className="caret"></span>
         </button>
         <ul className="dropdown-menu" aria-labelledby="dropdownMenu1" style={{textAlign:"center"}}>
           {
