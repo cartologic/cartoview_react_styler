@@ -112,7 +112,8 @@ class StylesManager {
     }
     const paletteName = config[property + "Color"];
     const palette = CartoColor[paletteName][Math.min(size, defaultSize).toString()];
-    return palette[index] || OTHERS_COLOR;
+    // return palette[index] || OTHERS_COLOR;
+    return palette[index]
   }
   _getSymbolizer(config, index, size, defaultSize){
     const {layerType} = config;
