@@ -27,7 +27,7 @@ class Styler extends Component {
     return(
     <nav className="navbar navbar-default">
       <div className="container">
-        <h4 style={{color:"dimgray"}}>Cartoview Point in Polygon Analysis Tool</h4>
+        <h4 style={{color:"dimgray"}}>Cartoview Categorized Styler</h4>
       </div>
     </nav>
     )
