@@ -22,6 +22,18 @@ class Styler extends Component {
     step: 0,
     saved: false
   }
+
+  navBar(){
+    return(
+    <nav className="navbar navbar-default">
+      <div className="container">
+        <h4 style={{color:"dimgray"}}>Cartoview Point in Polygon Analysis Tool</h4>
+      </div>
+    </nav>
+    )
+  }
+
+
   render() {
     var {config, styleObj, step, saved} = this.state
     const steps = [{
@@ -103,14 +115,17 @@ class Styler extends Component {
     }];
 
     return(
-      <div className="row">
-        <Navigator steps={steps} step={step} onStepSelected={(step)=>this.goToStep(step)}/>
-        <div className="col-md-9">
-          {
-            steps.map((s,index) => index == step && <s.component {...s.props} config={config} styleObj={styleObj}/>)
-          }
+      <div className="col-md-12">
+        <div className="row">{this.navBar()}</div>
+        <div className="row">
+          <Navigator steps={steps} step={step} onStepSelected={(step)=>this.goToStep(step)}/>
+          <div className="col-md-9">
+            {
+              steps.map((s,index) => index == step && <s.component {...s.props} config={config} styleObj={styleObj}/>)
+            }
+          </div>
         </div>
-      </div>
+    </div>
     )
   }
 
