@@ -18,8 +18,8 @@ export default class AboutPage extends Component {
             <button type="button"
               className="btn btn-primary"
               onClick={()=>this.props.onComplete()}
-              style={{float:"right", margin:"7% 35% 2% auto", width:"250px", height: "50px", fontSize:"20px"}}>
-              Start
+              style={{float:"right", margin:"7% 1% 0% 0% "}}>
+              Next
             </button>
           </div>
         </div>

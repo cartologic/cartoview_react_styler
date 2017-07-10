@@ -105,7 +105,7 @@ class LayersList extends Component {
                       <div className="content">
                         <h4 className="list-group-item-heading">{layer.title}</h4>
                         <hr></hr>
-                        <p className="mb-1">{layer.abstract}</p>
+                        <p className="mb-1">{`${layer.abstract.substring(0,140)} ...`}</p>
                         <br></br>
 
                         <a
