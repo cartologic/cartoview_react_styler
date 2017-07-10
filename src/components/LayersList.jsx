@@ -11,7 +11,7 @@ class LayersList extends Component {
     this.state = {
       layers: [],
       currentPage: 1,
-      limit_offset: "limit=5",
+      limit_offset: "limit=10",
       showPagination: true
     }
   }

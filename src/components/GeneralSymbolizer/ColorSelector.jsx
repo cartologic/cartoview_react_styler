@@ -56,7 +56,7 @@ export default class ColorSelector extends Component {
         }
         {
           type == BY_VALUE && <div className="col-xs-3">
-            <div className="rc-color-picker-panel-wrap-alpha" style={{top: "100%"}}>
+            <div className="rc-color-picker-panel-wrap-alpha" style={{top: "100%", padding:"0px 0px 0px 15%"}}>
               <Alpha rootPrefixCls="rc-color-picker-panel"
                  alpha={alpha}
                  hsv={{h: 0, s: 0, v: 33}}

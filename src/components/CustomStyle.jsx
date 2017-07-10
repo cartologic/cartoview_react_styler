@@ -8,32 +8,57 @@ import BusyIndicator from './BusyIndicator.jsx';
 import Symbolizer from './Symbolizer/Symbolizer.jsx';
 import { Button } from 'reactstrap';
 
-class CustomStyle extends Component {
+export default class CustomStyle extends Component {
   state = {}
+
+
+  tip(){
+    return(
+      <div className="panel panel-info" style={{margin: "15px auto 15px auto"}}>
+        <div className="panel-heading">Tip:</div>
+        <div className="panel-body">
+          Press on any of the following panes to customize its styles
+        </div>
+      </div>
+    )
+  }
+
+
   render(){
     var {slectedRuleIndex} = this.state;
     const {styleObj, onComplete} = this.props;
     const style = styleObj.namedLayers[styleObj.name].userStyles[0];
-    return <div className="row">
-      <div className="col-md-6">
-        <Rules rules={style.rules} onSelectRule={(index) => this.selectRule(index)} />
-      </div>
-      <div className="col-md-6">
-        <div className="form-group">
+    return(
+      <div className="row">
+        <div className="col-md-12">
+          {this.tip()}
+        </div>
+        <div className="col-md-6">
+          <Rules rules={style.rules} onSelectRule={(index) => this.selectRule(index)} />
+        </div>
+        <div className="col-md-6">
+          <div className="form-group">
+
+          </div>
+          {
+            slectedRuleIndex !== undefined && <Symbolizer rule={style.rules[slectedRuleIndex]}
+              onChange={rule => this.onRuleChange(rule) }/>
+          }
+
           <Button color="primary" onClick={(e)=>onComplete()}>
             {"Save and Preview >>"}
           </Button>
         </div>
-        {
-          slectedRuleIndex !== undefined && <Symbolizer rule={style.rules[slectedRuleIndex]}
-            onChange={rule => this.onRuleChange(rule) }/>
-        }
       </div>
-    </div>
+    )
   }
+
+
   selectRule(index){
     this.setState({slectedRuleIndex: index});
   }
+
+
   onRuleChange(rule){
     var {slectedRuleIndex} = this.state;
     var {styleObj, onChange} = this.props;
@@ -43,4 +68,3 @@ class CustomStyle extends Component {
     onChange(styleObj);
   }
 }
-export default CustomStyle;
