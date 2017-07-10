@@ -17,7 +17,7 @@ export default class CustomStyle extends Component {
       <div className="panel panel-info" style={{margin: "15px auto 15px auto"}}>
         <div className="panel-heading">Tip:</div>
         <div className="panel-body">
-          Press on any of the following panes to customize its styles
+          Press on any of the panes to customize its styles
         </div>
       </div>
     )
@@ -30,9 +30,6 @@ export default class CustomStyle extends Component {
     const style = styleObj.namedLayers[styleObj.name].userStyles[0];
     return(
       <div className="row">
-        <div className="col-md-12">
-          {this.tip()}
-        </div>
         <div className="col-md-6">
           <Rules rules={style.rules} onSelectRule={(index) => this.selectRule(index)} />
         </div>
@@ -48,6 +45,10 @@ export default class CustomStyle extends Component {
           <Button color="primary" onClick={(e)=>onComplete()}>
             {"Save and Preview >>"}
           </Button>
+        </div>
+
+        <div className="col-md-12">
+          {this.tip()}
         </div>
       </div>
     )

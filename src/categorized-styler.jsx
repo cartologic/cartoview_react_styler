@@ -57,7 +57,7 @@ class Styler extends Component {
       </div>
 
       <p>
-        The above image demonstrates a typical example for a categorized thematic map, To start creating your own styles click start
+        The above image demonstrates a typical example for a categorized thematic map, To start creating your own styles click "Next"
       </p>
     </div>
     )
@@ -115,7 +115,7 @@ class Styler extends Component {
           });
         },
         filter: a => a.attribute_type.toLowerCase() == "xsd:string",
-        note: "* The string type attributes only are selectable to perform the purpose of this app"
+        tip: "The string type attributes only are selectable to perform the purpose of this app"
       }
     },
     // {

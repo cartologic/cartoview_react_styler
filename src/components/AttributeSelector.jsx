@@ -15,12 +15,13 @@ export default class AttributeSelector extends Component {
     });
   }
 
-  note(){
-    if(this.props.note)
+
+  tip(){
     return(
-      <div className="panel panel-primary" style={{backgroundColor:"inherit"}}>
-        <div className="panel-body" style={{color:"indianred"}}>
-          {this.props.note}
+      <div className="panel panel-info" style={{margin: "15px auto 15px auto"}}>
+        <div className="panel-heading">Tip:</div>
+        <div className="panel-body">
+          {this.props.tip}
         </div>
       </div>
     )
@@ -40,9 +41,6 @@ export default class AttributeSelector extends Component {
     return(
       <div>
         <h4>Select attribute</h4>
-
-        {this.note()}
-
         <ul className="list-group">
           {
             attrs.map(a => isGeom(a) || !filter(a) ? null : <li className="list-group-item"  onClick={()=>onComplete(a.attribute)} style={{marginTop: "4px"}}>
@@ -50,6 +48,8 @@ export default class AttributeSelector extends Component {
             </li>)
           }
         </ul>
+
+        {this.tip()}
       </div>
     )
   }

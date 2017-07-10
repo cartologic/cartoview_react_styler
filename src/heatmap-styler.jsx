@@ -61,7 +61,7 @@ class Styler extends Component {
       </div>
 
       <p>
-        The above image demonstrates a typical example for a categorized thematic map, To start creating your own styles click start
+        The above image demonstrates a typical example for a categorized thematic map, To start creating your own styles click "Next"
       </p>
     </div>
     )
@@ -110,7 +110,7 @@ class Styler extends Component {
       component: WeightSelector,
       props: {
         onComplete: (attribute) => this.updateConfig({attribute}),
-        note: "* The numeric type attributes only are selectable to perform the purpose of this app"
+        tip: "The numeric type attributes only are selectable to perform the purpose of this app"
       }
     },
     {
