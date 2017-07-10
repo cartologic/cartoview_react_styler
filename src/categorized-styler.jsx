@@ -48,7 +48,7 @@ class Styler extends Component {
     return(
     <div>
       <p>
-        Create a layer color range garaduated value style layer descriptor(SLD), SLD addresses the need for users and software to be able to control the visual portrayal of the geospatial data.
+        Create a layer color range categorized value style layer descriptor(SLD), SLD addresses the need for users and software to be able to control the visual portrayal of the geospatial data.
       </p>
       <p>This app will give you the ability to define categorized styling rules.</p>
 
