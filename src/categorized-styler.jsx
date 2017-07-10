@@ -114,7 +114,8 @@ class Styler extends Component {
             }, true));
           });
         },
-        filter: a => a.attribute_type.toLowerCase() == "xsd:string"
+        filter: a => a.attribute_type.toLowerCase() == "xsd:string",
+        note: "* The string type attributes only are selectable to perform the purpose of this app"
       }
     },
     // {

@@ -14,7 +14,7 @@ export default class AboutPage extends Component {
           <div className="panel-body">
             {this.props.aboutBody}
 
-            
+
             <button type="button"
               className="btn btn-primary"
               onClick={()=>this.props.onComplete()}
