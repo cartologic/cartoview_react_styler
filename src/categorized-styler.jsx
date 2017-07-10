@@ -4,6 +4,7 @@ import WMSClient from './gs-client/WMSClient.jsx'
 import WPSClient from './gs-client/WPSClient.jsx'
 import LayersList from './components/LayersList.jsx';
 import LayerStyles from './components/LayerStyles.jsx';
+import AboutPage from './components/AboutPage.jsx';
 // import StyleForm from './components/StyleForm.jsx';
 import GeneralSymbolizer from './components/GeneralSymbolizer.jsx';
 import CustomStyle from './components/CustomStyle.jsx';
@@ -23,20 +24,59 @@ class Styler extends Component {
     saved: false
   }
 
+
+
   navBar(){
     return(
     <nav className="navbar navbar-default">
       <div className="container">
-        <h4 style={{color:"dimgray"}}>Cartoview Categorized Styler</h4>
+        <h4 style={{color:"dimgray"}}>Categorized Thematic Styler</h4>
       </div>
     </nav>
     )
   }
 
 
+  aboutHeader(){
+    return(
+      <h3>Categorized Thematic Styler</h3>
+    )
+  }
+
+
+  aboutBody(){
+    return(
+    <div>
+      <p>
+        Create a layer color range garaduated value style layer descriptor(SLD), SLD addresses the need for users and software to be able to control the visual portrayal of the geospatial data.
+      </p>
+      <p>This app will give you the ability to define categorized styling rules.</p>
+
+      <div style={{width:"650px", height:"300px", margin:"30px auto 30px auto"}}>
+        <img src={`/static/${APP_NAME}/images/worldwide categorized thematic map.jpg`} style={{height:"inherit", width:"inherit"}} alt=""/>
+      </div>
+
+      <p>
+        The above image demonstrates a typical example for a categorized thematic map, To start creating your own styles click start
+      </p>
+    </div>
+    )
+  }
+
+
+
+
   render() {
     var {config, styleObj, step, saved} = this.state
     const steps = [{
+      label: "About",
+      component: AboutPage,
+      props: {
+        onComplete: () => this.updateConfig({}),
+        aboutHeader: this.aboutHeader(),
+        aboutBody: this.aboutBody()
+      }
+    },{
       label: "Select Layer",
       component: LayersList,
       props: {
