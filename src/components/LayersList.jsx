@@ -11,7 +11,7 @@ class LayersList extends Component {
     this.state = {
       layers: [],
       currentPage: 1,
-      limit_offset: "limit=10",
+      limit_offset: "limit=5",
       showPagination: true
     }
   }
@@ -62,14 +62,13 @@ class LayersList extends Component {
 
 
   componentDidMount(){
-    // WMSClient.getLayers().then((layers)=>this.setState({layers}));
     this.loadLayers();
   }
 
 
   pagination(){
     return(
-      <ul className="pagination" style={{marginLeft:"40%", marginRight:"40%"}}>
+      <ul className="pagination">
         <li><a onMouseDown={(e)=>this.onPaginationClick(e, "prev")} style={{cursor:"default"}}>{"<"}</a></li>
         <li><a onMouseDown={(e)=>e.preventDefault()} style={{cursor:"default"}}>{this.state.currentPage}</a></li>
         <li><a onMouseDown={(e)=>this.onPaginationClick(e, "next")} style={{cursor:"default"}}>{">"}</a></li>
@@ -93,20 +92,18 @@ class LayersList extends Component {
 
         <ul className="list-group">
           {
-            //to={match.url + layer.typename}
             layers.map((layer) => {return(
               <div>
                 <li className="list-group-item">
                   <div className="row">
 
-                    <div className="col-xs-3"><img src={layer.thumbnail_url} style={{width:"100%", height:"150px"}}/></div>
+                    <div className="col-xs-12 col-md-3"><img src={layer.thumbnail_url} style={{width:"100%"}}/></div>
 
-                    <div className="col-xs-9">
+                    <div className="col-xs-12 col-md-9">
                       <div className="content">
-                        <h4 className="list-group-item-heading">{layer.title}</h4>
+                        <h4 className="list-group-item-heading" style={{marginTop: "1%"}}>{layer.title}</h4>
                         <hr></hr>
                         <p className="mb-1">{`${layer.abstract.substring(0,140)} ...`}</p>
-                        <br></br>
 
                         <a
                           type="button"
@@ -133,8 +130,11 @@ class LayersList extends Component {
             )})
           }
         </ul>
-
-        {this.state.showPagination && this.pagination()}
+        <div className="row">
+          <div className="col-xs-6 col-xs-offset-4 col-md-2 col-md-offset-5">
+          {this.state.showPagination && this.pagination()}
+          </div>
+        </div>
       </div>
     )
   }
