@@ -39,24 +39,24 @@ export default class ColorSelector extends Component {
 
     return(
       <div className="row">
-        <div className="col-xs-2">
+        <div className="col-xs-12 col-md-2">
           <ColorTypeSelector  type={type} onChange={(type) => onTypeChange(type)}/>
         </div>
         {
-          type == SOLID && <div>
+          type == SOLID && <div className="col-xs-5 col-md-3" style={{marginTop:"2px"}} >
           <ColorWithOpacity symbolizer={config} property={property} noLabel={true}
             onChange={(symbolizer) => onChange(symbolizer)} />
           </div>
         }
         {
-          type == BY_VALUE && <div className="col-xs-3">
+          type == BY_VALUE && <div className="col-xs-3 col-md-3" style={{marginTop:"2px"}} >
           <PaletteSelector symbolizer={config} property={property}
             onChange={(symbolizer) => onChange(symbolizer)} />
           </div>
         }
         {
-          type == BY_VALUE && <div className="col-xs-3">
-            <div className="rc-color-picker-panel-wrap-alpha" style={{top: "100%", padding:"0px 0px 0px 15%"}}>
+          type == BY_VALUE && <div className="col-xs-11 col-xs-offset-1 col-md-3" style={{marginTop:"2px"}} >
+            <div className="rc-color-picker-panel-wrap-alpha" style={{top: "100%"}}>
               <Alpha rootPrefixCls="rc-color-picker-panel"
                  alpha={alpha}
                  hsv={{h: 0, s: 0, v: 33}}
