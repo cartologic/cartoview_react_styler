@@ -56,8 +56,12 @@ class Styler extends Component {
       </p>
       <p>This app will give you the ability to define heatmap styling rules.</p>
 
-      <div style={{width:"650px", height:"300px", margin:"30px auto 30px auto"}}>
-        <img src={`/static/${APP_NAME}/images/worldwide heatmap.jpg`} style={{height:"inherit", width:"inherit"}} alt=""/>
+
+
+      <div className="row">
+        <div className='col-xs-12 col-md-10 col-md-offset-1'>
+          <img className='img-responsive' src={`/static/${APP_NAME}/images/worldwide heatmap.png`} alt="" />
+        </div>
       </div>
 
       <p>

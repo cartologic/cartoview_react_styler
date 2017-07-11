@@ -28,8 +28,8 @@ export default class Navigator extends Component {
   render(){
     const {steps} = this.props;
     return (
-      <div className="col-md-3 list-group">
-        <ul className={"list-group"}>
+      <div className="col-md-3">
+        <ul className={"list-group"} >
           {steps.map((s, index) => this.item(s.label, index) )}
         </ul>
       </div>
