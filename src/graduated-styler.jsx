@@ -17,24 +17,18 @@ import StylesManager from "./managers/StylesManager.jsx";
 
 import "../css/styler.css";
 import {UNIQUE_VALUES, SOLID, BY_VALUE, DEFAULTS, DEFAULT_NUM_OF_CLASSES,
-        DEFAULT_PALETTE, DEFAULT_COLOR, MAX_SIZE} from './constants/constants.jsx'
+        DEFAULT_PALETTE, DEFAULT_COLOR, MAX_SIZE, DefaultModalStyle} from './constants/constants.jsx'
+
+import Modal from 'react-modal';
+
 
 class Styler extends Component {
   state = {
     config: Object.assign({}, DEFAULTS),
     step: 0,
-    saved: false
-  }
+    saved: false,
 
-
-  navBar(){
-    return(
-    <nav className="navbar navbar-default">
-      <div className="container">
-        <h4 style={{color:"dimgray"}}>Graduated Thematic Styler</h4>
-      </div>
-    </nav>
-    )
+    modalIsOpen:false
   }
 
 
@@ -67,17 +61,71 @@ class Styler extends Component {
   }
 
 
+
+  helpModal(){
+      return(
+        <Modal className="modal-dialog"
+          isOpen={this.state.modalIsOpen}
+          style={DefaultModalStyle}
+          onRequestClose={()=>{this.setState({modalIsOpen: false})}}>
+          <div className="">
+            <div className="panel panel-default">
+              <div className="panel-heading">
+                <div className="row">
+                  <div className="col-xs-6 col-md-6">
+                    {this.aboutHeader()}
+                  </div>
+                  <div className="col-xs-1 col-md-1 col-md-offset-5 col-xs-offset-5">
+                    <div className="pull-right">
+                      <a className="btn btn btn-primary"
+                        onClick={(e) =>{ e.preventDefault(); this.setState({modalIsOpen:false}) } }>
+                        x
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="panel-body">
+                <div className="row">
+                  <div className="col-md-12">
+                    {this.aboutBody()}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      )
+    }
+
+
+  navBar(){
+      return(
+      <nav className="navbar navbar-default">
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-6 col-md-6">
+              <h4 style={{color:"dimgray"}}>Graduated Styler</h4>
+            </div>
+            <div className="col-xs-1 col-md-1 col-md-offset-5 col-xs-offset-4">
+              <button type="button"
+                style={{marginTop:"8%"}}
+                className="btn btn-primary"
+                onClick={()=>{this.setState({modalIsOpen: true})}}>
+                ?
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+      )
+    }
+
+
+
   render() {
     var {config, styleObj, step, saved} = this.state
     const steps = [{
-      label: "About",
-      component: AboutPage,
-      props: {
-        onComplete: () => this.updateConfig({}),
-        aboutHeader: this.aboutHeader(),
-        aboutBody: this.aboutBody()
-      }
-    },{
       label: "Select Layer",
       component: LayersList,
       props: {
@@ -168,6 +216,7 @@ class Styler extends Component {
 
     return(
       <div className="col-md-12">
+        {this.helpModal()}
         <div className="row">{this.navBar()}</div>
         <div className="row">
           <Navigator steps={steps} step={step} onStepSelected={(step)=>this.goToStep(step)}/>
@@ -180,6 +229,8 @@ class Styler extends Component {
       </div>
     )
   }
+
+
   updateConfig(newConfig, sameStep){
     var {config, step} = this.state;
     Object.assign(config, newConfig);
