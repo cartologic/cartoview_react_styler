@@ -5,7 +5,7 @@ import Search from "./Search.jsx";
 
 import Switch from 'react-toggle-switch'
 import 'react-toggle-switch/dist/css/switch.min.css'
-
+// box-shadow: 0px 0px 10px 5px steelblue;
 export default class LayersList extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +14,9 @@ export default class LayersList extends Component {
       currentPage: 1,
       limit_offset: "limit=5",
       showPagination: true,
-      myLayers: true
+      myLayers: true,
+      selectedLayerIndex: -1,
+      selectedLayer: ""
     }
   }
 
@@ -23,7 +25,7 @@ export default class LayersList extends Component {
     if (username)
       url = `/apps/${APP_NAME}/api/layers/?type=${this.props.layerType}&${this.state.limit_offset}&owner=${username}`
     fetch(url, {credentials: 'include'}).then((res) => res.json()).then((layers) => {
-      this.setState({layers: layers.objects, next: layers.meta.next, prev: layers.meta.previous})
+      this.setState({layers: layers.objects, next: layers.meta.next, prev: layers.meta.previous, selectedLayerIndex: -1, selectedLayer: ''})
     })
   }
 
@@ -33,12 +35,14 @@ export default class LayersList extends Component {
       if (this.state.myLayers)
         url = `/apps/${APP_NAME}/api/layers/?typename=${layerTypeName}&type=${this.props.layerType}&${this.state.limit_offset}&owner=${username}`
       fetch(url, {credentials: 'include'}).then((res) => res.json()).then((layers) => {
-        this.setState({layers: layers.objects, showPagination: false})
+        this.setState({layers: layers.objects, showPagination: false, selectedLayerIndex: -1, selectedLayer: ""})
       })
     } else {
       // clear button
       this.setState({
-        showPagination: true
+        showPagination: true,
+        selectedLayerIndex: -1,
+        selectedLayer: ""
       }, () => this.loadLayers())
     }
   }
@@ -111,11 +115,11 @@ export default class LayersList extends Component {
           <h4>{'Select Layer'}</h4>
         </div>
         <div className="col-xs-7 col-md-8">
-          {this.state.selectedLayer
+          {this.state.selectedLayerIndex != -1
             ? <button style={{
                 display: "inline-block",
                 margin: "0px 3px 0px 3px"
-              }} className="btn btn-primary btn-sm pull-right" onClick={() => this.props.onComplete()}>{"next >>"}</button>
+              }} className="btn btn-primary btn-sm pull-right" onClick={() => this.props.onComplete(this.state.selectedLayer)}>{"next >>"}</button>
             : <button style={{
               display: "inline-block",
               margin: "0px 3px 0px 3px"
@@ -160,12 +164,17 @@ export default class LayersList extends Component {
     const {onComplete} = this.props;
     return (
       <ul className="list-group">
-        {layers.map((layer) => {
+        {layers.map((layer, i) => {
           return (
             <div>
-              <li className="list-group-item">
+              <li className="list-group-item" onClick={() => {
+                this.setState({selectedLayerIndex: i, selectedLayer: layer.typename})
+              }} style={this.state.selectedLayerIndex == i
+                ? {
+                  boxShadow: "0px 0px 10px 5px steelblue"
+                }
+                : {}}>
                 <div className="row">
-
                   <div className="col-xs-12 col-md-3"><img src={layer.thumbnail_url} style={{
               width: "100%"
             }}/></div>
@@ -177,6 +186,7 @@ export default class LayersList extends Component {
                       }}>{layer.title}</h4>
                       <hr></hr>
                       <p className="mb-1">{`${layer.abstract.substring(0, 140)} ...`}</p>
+                      <p>{`Owner: ${layer.owner.username}`}</p>
 
                       <a type="button" href={`/layers/${layer.typename}`} target="_blank" className="btn btn-primary pull-right" style={{
                         margin: "5px",
@@ -184,13 +194,6 @@ export default class LayersList extends Component {
                       }}>
                         Layer Details
                       </a>
-
-                      <button type="button" className="btn btn-default" onClick={() => onComplete(layer.typename)} style={{
-                        margin: "5px",
-                        float: "right"
-                      }}>
-                        Select
-                      </button>
                     </div>
                   </div>
                 </div>

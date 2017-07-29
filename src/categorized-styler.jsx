@@ -134,7 +134,10 @@ class Styler extends Component {
         label: "Select Layer",
         component: LayersList,
         props: {
-          onComplete: (layerName) => this.updateConfig({layerName}),
+          onComplete: (layerName) => {
+            console.log(layerName);
+            this.updateConfig({layerName})
+          },
           layerType: ""
         }
       }, {
