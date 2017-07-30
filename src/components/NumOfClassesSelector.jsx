@@ -3,7 +3,9 @@ import {ListGroup, ListGroupItem} from 'reactstrap';
 
 class NumOfClassesSelector extends Component {
   state = {
-    attrs: []
+    attrs: [],
+    numOfClasses: this.props.numOfClasses || undefined,
+    index: this.props.index || -1
   }
 
   renderHeader() {
@@ -16,7 +18,9 @@ class NumOfClassesSelector extends Component {
           <button style={{
             display: "inline-block",
             margin: "0px 3px 0px 3px"
-          }} className="btn btn-primary btn-sm pull-right" onClick={() => this.props.onComplete()}>{"next >>"}</button>
+          }} className={this.state.index == -1
+            ? "btn btn-primary btn-sm pull-right disabled"
+            : "btn btn-primary btn-sm pull-right"} onClick={() => this.props.onComplete(this.state.numOfClasses, this.state.index)}>{"next >>"}</button>
 
           <button style={{
             display: "inline-block",
@@ -40,13 +44,24 @@ class NumOfClassesSelector extends Component {
       7
     ];
     return <div>
-      <p>Number of classes</p>
-      <ListGroup>
-        {classes.map(c => <ListGroupItem tag="a" href="#" onClick={() => onComplete(c)}>
+      {this.renderHeader()}
+      <ul className={'list-group'}>
+        {classes.map((c, i) => <li className={'list-group-item'} onClick={() => this.setState({numOfClasses: c, index: i})} style={this.state.index == i
+          ? {
+            boxShadow: "0px 0px 10px 5px steelblue",
+            marginTop: "8px",
+            marginBottom: "8px",
+            cursor: 'pointer'
+          }
+          : {
+            marginTop: "8px",
+            marginBottom: "8px",
+            cursor: 'pointer'
+          }}>
           {c}
-        </ListGroupItem>)
+        </li>)
 }
-      </ListGroup>
+      </ul>
     </div>;
   }
 }
