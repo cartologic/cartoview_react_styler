@@ -30,12 +30,15 @@ import {
 import Modal from 'react-modal';
 
 class Styler extends Component {
-  state = {
-    config: Object.assign({}, DEFAULTS),
-    step: 0,
-    saved: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      config: Object.assign({}, DEFAULTS),
+      step: 0,
+      saved: false,
 
-    modalIsOpen: false
+      modalIsOpen: false
+    }
   }
 
   aboutHeader() {
@@ -135,7 +138,6 @@ class Styler extends Component {
         component: LayersList,
         props: {
           onComplete: (layerName) => {
-            console.log(layerName);
             this.updateConfig({layerName})
           },
           layerType: ""
@@ -152,7 +154,14 @@ class Styler extends Component {
               config.styleName = styleObj.name;
               this.setState({styleObj, config})
             })
-          }
+          },
+
+          onPrevious: () => this.setState({
+            step: this.state.step -= 1
+          }),
+          styleTitle: this.state.config
+            ? this.state.config.title
+            : undefined
         }
       }, {
         label: "Select Attribute",
@@ -213,8 +222,7 @@ class Styler extends Component {
         <div className="row">
           <Navigator steps={steps} step={step} onStepSelected={(step) => this.goToStep(step)}/>
           <div className="col-md-9">
-            {steps.map((s, index) => index == step && <s.component {...s.props} config={config} styleObj={styleObj}/>)
-}
+            {steps.map((s, index) => index == step && <s.component {...s.props} config={config} styleObj={styleObj}/>)}
           </div>
         </div>
       </div>

@@ -171,13 +171,27 @@ export default class LayersList extends Component {
                 this.setState({selectedLayerIndex: i, selectedLayer: layer.typename})
               }} style={this.state.selectedLayerIndex == i
                 ? {
-                  boxShadow: "0px 0px 10px 5px steelblue"
+                  boxShadow: "0px 0px 10px 5px steelblue",
+                  paddingTop: "0px",
+                  paddingBottom: '0px',
+                  cursor: "pointer"
                 }
-                : {}}>
+                : {
+                  paddingTop: "0px",
+                  paddingBottom: '0px',
+                  cursor: "pointer"
+                }}>
                 <div className="row">
-                  <div className="col-xs-12 col-md-3"><img src={layer.thumbnail_url} style={{
-              width: "100%"
-            }}/></div>
+                  <div className="col-xs-12 col-md-3" style={{
+                    height: "180px",
+                    padding: "0px"
+                  }}>
+                    <img className="img-responsive" src={layer.thumbnail_url} style={{
+                      width: "100%",
+                      height: "inherit",
+                      margin: 'auto'
+                    }}/>
+                  </div>
 
                   <div className="col-xs-12 col-md-9">
                     <div className="content">
