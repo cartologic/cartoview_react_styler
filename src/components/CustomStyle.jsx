@@ -6,7 +6,6 @@ import Rules from "./Rules.jsx";
 import Classifier from "./Classifier/Classifier.jsx";
 import BusyIndicator from './BusyIndicator.jsx';
 import Symbolizer from './Symbolizer/Symbolizer.jsx';
-import { Button } from 'reactstrap';
 
 export default class CustomStyle extends Component {
   state = {}
@@ -24,33 +23,63 @@ export default class CustomStyle extends Component {
   }
 
 
+  renderHeader() {
+    return (
+      <div className="row">
+        <div className="col-xs-5 col-md-4">
+          <h4>{'Customize Style'}</h4>
+        </div>
+        <div className="col-xs-7 col-md-8">
+          <button style={{
+            display: "inline-block",
+            margin: "0px 3px 0px 3px"
+          }} className="btn btn-primary btn-sm pull-right disabled" onClick={() => this.props.onComplete()}>{"next >>"}</button>
+
+          <button style={{
+            display: "inline-block",
+            margin: "0px 3px 0px 3px"
+          }} className="btn btn-primary btn-sm pull-right" onClick={() => {
+            this.props.onPrevious()
+          }}>{"<< Previous"}</button>
+        </div>
+      </div>
+    )
+  }
+
+
+
   render(){
     var {slectedRuleIndex} = this.state;
     const {styleObj, onComplete} = this.props;
     const style = styleObj.namedLayers[styleObj.name].userStyles[0];
     return(
-      <div className="row">
-        <div className="col-md-6">
-          <Rules rules={style.rules} onSelectRule={(index) => this.selectRule(index)} />
-        </div>
-        <div className="col-md-6">
-          <div className="form-group">
+      <div>
+        {this.renderHeader()}
+        <div className="row">
+          <div className="col-md-6">
+            <Rules rules={style.rules} onSelectRule={(index) => this.selectRule(index)} />
+          </div>
+          <div className="col-md-6">
+            <div className="form-group">
+              <button className="btn btn-primary pull-right" onClick={(e)=>onComplete()}>
+                {"Save and Preview >>"}
+              </button>
+              <br></br>
+            </div>
+            {
+              slectedRuleIndex !== undefined && <Symbolizer rule={style.rules[slectedRuleIndex]}
+                onChange={rule => this.onRuleChange(rule) }/>
+            }
+
 
           </div>
-          {
-            slectedRuleIndex !== undefined && <Symbolizer rule={style.rules[slectedRuleIndex]}
-              onChange={rule => this.onRuleChange(rule) }/>
-          }
 
-          <Button color="primary" onClick={(e)=>onComplete()}>
-            {"Save and Preview >>"}
-          </Button>
-        </div>
-
-        <div className="col-md-12">
-          {this.tip()}
+          <div className="col-md-12">
+            {this.tip()}
+          </div>
         </div>
       </div>
+
     )
   }
 

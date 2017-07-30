@@ -199,7 +199,12 @@ class Styler extends Component {
               this.setState({styleObj, step});
             });
           },
-          onChange: (newConfig) => this.updateConfig(newConfig, true)
+          onChange: (newConfig) => this.updateConfig(newConfig, true),
+          onPrevious: () => {
+            this.setState({
+              step: this.state.step -= 1
+            })
+          }
         }
       }, {
         label: "Customize Style",
@@ -210,6 +215,11 @@ class Styler extends Component {
             this.updateConfig({})
             StylesManager.saveStyle(styleObj, config).then(() => {
               this.setState({saved: true});
+            })
+          },
+          onPrevious: () => {
+            this.setState({
+              step: this.state.step -= 1
             })
           }
         }
