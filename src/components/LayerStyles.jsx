@@ -37,7 +37,7 @@ export default class LayerStyles extends Component {
       <div>
         <div className="row">
           <div className="col-xs-5 col-md-4">
-            <h4>{'General'}</h4>
+            <h4>{'Style Name'}</h4>
           </div>
           <div className="col-xs-7 col-md-8">
             <button style={{
@@ -57,10 +57,6 @@ export default class LayerStyles extends Component {
         <div className={error
           ? "form-group has-error"
           : "form-group"}>
-          <label>
-            <h4>Style Name</h4>
-          </label>
-          <br></br>
           {error && <label className="control-label" htmlFor="inputError1">Enter a valid style name!</label>}
           <input type="text" className="form-control" id="inputError1" placeholder="New Style Title" value={title} onChange={e => this.setState({title: e.target.value})}/>
         </div>

@@ -167,8 +167,8 @@ class Styler extends Component {
         label: "Select Attribute",
         component: AttributeSelector,
         props: {
-          onComplete: (attribute) => {
-            this.updateConfig({attribute});
+          onComplete: (attribute, index) => {
+            this.updateConfig({attribute, selectedAttrIndex: index});
             const {layerName} = this.state.config;
             WPSClient.gsUnique(layerName, attribute).then(res => {
               WMSClient.getLayerType(layerName).then(layerType => this.updateConfig({
@@ -179,7 +179,14 @@ class Styler extends Component {
             });
           },
           filter: a => a.attribute_type.toLowerCase() == "xsd:string",
-          tip: "String attributes only are only available for this step"
+          tip: "String attributes only are only available for this step",
+          onPrevious: () => {
+            this.setState({
+              step: this.state.step -= 1
+            })
+          },
+          attribute: this.state.config.attribute,
+          index: this.state.config.selectedAttrIndex
         }
       }, {
         label: "Generate Thematic Style",
