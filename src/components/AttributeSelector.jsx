@@ -8,7 +8,7 @@ export default class AttributeSelector extends Component {
       ? this.props.index
       : -1,
     selectedAttribute: this.props.attribute
-      ? this.props.selectedAttribute
+      ? this.props.attribute
       : ''
   }
 
