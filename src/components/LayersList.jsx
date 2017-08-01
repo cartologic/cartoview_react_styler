@@ -275,9 +275,11 @@ export default class LayersList extends Component {
 
         {this.state.loading == true
           ? <div className="loading"></div>
-          : this.state.layers.length == 0 && this.state.myLayers == true
-            ? this.renderTip1()
-            : this.renderTip2()}
+          : this.state.layers.length != 0
+            ? this.renderLayers()
+            : this.state.myLayers
+              ? this.renderTip1()
+              : this.renderTip2()}
 
         <div className="row">
           <div className="col-xs-6 col-xs-offset-4 col-md-2 col-md-offset-5">
