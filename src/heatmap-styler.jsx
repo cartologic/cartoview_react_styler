@@ -135,7 +135,7 @@ class Styler extends Component {
     var {config, styleObj, step, saved} = this.state;
     const steps = [
       {
-        label: "Select Layer",
+        label: "Select Point Layer",
         component: LayersList,
         props: {
           onComplete: (layerName) => {
