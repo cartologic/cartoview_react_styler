@@ -18,7 +18,9 @@ class GraduatedMethodSelector extends Component {
           <button style={{
             display: "inline-block",
             margin: "0px 3px 0px 3px"
-          }} className="btn btn-primary btn-sm pull-right" onClick={() => this.props.onComplete(this.state.method, this.state.index)}>{"next >>"}</button>
+          }} className={this.state.index == -1
+            ? "btn btn-primary btn-sm pull-right disabled"
+            : "btn btn-primary btn-sm pull-right"} onClick={() => this.props.onComplete(this.state.method, this.state.index)}>{"next >>"}</button>
 
           <button style={{
             display: "inline-block",

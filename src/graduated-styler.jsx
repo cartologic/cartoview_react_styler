@@ -203,12 +203,14 @@ class Styler extends Component {
         label: "Number of Classes",
         component: NumOfClassesSelector,
         props: {
-          onComplete: (numOfClasses) => this.updateConfig({numOfClasses}),
+          onComplete: (numOfClasses, classIndex) => this.updateConfig({numOfClasses, classIndex}),
           onPrevious: () => {
             this.setState({
               step: this.state.step -= 1
             })
-          }
+          },
+          numOfClasses: this.state.config.numOfClasses,
+          index: this.state.config.classIndex
         }
       }, {
         label: "Generate Thematic Style",
