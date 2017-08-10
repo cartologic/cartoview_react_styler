@@ -34,26 +34,27 @@ function xml(literalSections, ...substs) {
   return result;
 }
 
-
 var color1 = 'FF0000';
 var color2 = '00FF00';
 
 var getHex = (x) => {
-    x = x.toString(16);
-    return (x.length == 1) ? '0' + x : x;
+  x = x.toString(16);
+  return (x.length == 1)
+    ? '0' + x
+    : x;
 };
 
 const getColor = (color1, color2, ratio) => {
-  const R1 = parseInt(color1.substring(1,3), 16),
-        G1 = parseInt(color1.substring(3,5), 16),
-        B1 = parseInt(color1.substring(5,7), 16),
-        R2 = parseInt(color2.substring(1,3), 16),
-        G2 = parseInt(color2.substring(3,5), 16),
-        B2 = parseInt(color2.substring(5,7), 16),
-        R = Math.ceil(R1 * ratio + R2 * (1-ratio)),
-        G = Math.ceil(G1 * ratio + G2 * (1-ratio)),
-        B = Math.ceil(B1 * ratio + B2 * (1-ratio));
-    return "#" + getHex(R) + getHex(G) + getHex(B);
+  const R1 = parseInt(color1.substring(1, 3), 16),
+    G1 = parseInt(color1.substring(3, 5), 16),
+    B1 = parseInt(color1.substring(5, 7), 16),
+    R2 = parseInt(color2.substring(1, 3), 16),
+    G2 = parseInt(color2.substring(3, 5), 16),
+    B2 = parseInt(color2.substring(5, 7), 16),
+    R = Math.ceil(R1 * ratio + R2 * (1 - ratio)),
+    G = Math.ceil(G1 * ratio + G2 * (1 - ratio)),
+    B = Math.ceil(B1 * ratio + B2 * (1 - ratio));
+  return "#" + getHex(R) + getHex(G) + getHex(B);
 }
 
 const getColorMap = (startColor, endColor) => {
@@ -86,7 +87,7 @@ class StyleWriter {
         <Name>${config.styleName}</Name>
         <UserStyle>
           <Name>${config.styleName}</Name>
-        <Title>${config.styleTitle}</Title>
+        <Title>${config.title}</Title>
         <FeatureTypeStyle>
           <Transformation>
             <ogc:Function name="gs:Heatmap">
