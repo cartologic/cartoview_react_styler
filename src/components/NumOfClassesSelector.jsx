@@ -46,7 +46,7 @@ class NumOfClassesSelector extends Component {
     return <div>
       {this.renderHeader()}
       <ul className={'list-group'}>
-        {classes.map((c, i) => <li className={'list-group-item'} onClick={() => this.setState({numOfClasses: c, index: i})} style={this.state.index == i
+        {classes.map((c, i) => <li className={'list-group-item'} onClick={() => this.setState({numOfClasses: c, index: c})} style={this.state.index == c
           ? {
             boxShadow: "0px 0px 10px 5px steelblue",
             marginTop: "8px",

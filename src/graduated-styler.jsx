@@ -176,8 +176,8 @@ class Styler extends Component {
               }, true));
             });
           },
-          filter: a => a.attribute_type.toLowerCase() == "xsd:string",
-          tip: "String attributes only are only available for this step",
+          filter: a => a.attribute_type.toLowerCase() != "xsd:string",
+          tip: "Numeric attributes only are only available for this step",
           onPrevious: () => {
             this.setState({
               step: this.state.step -= 1
@@ -203,7 +203,9 @@ class Styler extends Component {
         label: "Number of Classes",
         component: NumOfClassesSelector,
         props: {
-          onComplete: (numOfClasses, classIndex) => this.updateConfig({numOfClasses, classIndex}),
+          onComplete: (numOfClasses, classIndex) => {
+            this.updateConfig({numOfClasses: numOfClasses, classIndex})
+          },
           onPrevious: () => {
             this.setState({
               step: this.state.step -= 1
@@ -216,9 +218,9 @@ class Styler extends Component {
         label: "Generate Thematic Style",
         component: GeneralSymbolizer,
         props: {
-          type: UNIQUE_VALUES,
+          type: config.method,
           onComplete: () => {
-            StylesManager.createUniqueRules(styleObj, config).then((styleObj) => {
+            StylesManager.createGraduatedRules(styleObj, config).then((styleObj) => {
               step++;
               this.setState({styleObj, step});
             });
